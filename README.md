@@ -30,18 +30,3 @@ Permite criar contas, depositar, sacar e consultar saldo de forma prática e org
 </div>
 
 ---
-
-## 📂 **Estrutura do Projeto**
-```text
-Banco/
-│
-├─ src/
-│   ├─ Main.java        # Classe principal com menu interativo
-│   └─ Conta.java       # Classe que representa uma conta bancária
-│
-└─ README.md
-
-
-
-
-</div>
