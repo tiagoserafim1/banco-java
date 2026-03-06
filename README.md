@@ -43,8 +43,7 @@ Banco/
 │
 ├─ src/
 │   ├─ Main.java        # Classe principal com menu interativo
-│   ├─ Conta.java       # Classe que representa uma conta bancária
-│   └─ Cliente.java     # Classe que representa um cliente
+│   └─ Conta.java       # Classe que representa uma conta bancária
 │
 └─ README.md
 
