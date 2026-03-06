@@ -2,12 +2,6 @@
 
 <div align="center">
 
-![Java Banner](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-![OOP Badge](https://img.shields.io/badge/OOP-007ACC?style=for-the-badge&logo=objectscript&logoColor=white)
-![ArrayList Badge](https://img.shields.io/badge/ArrayList-FF6F61?style=for-the-badge)
-
-</div>
-
 ---
 
 ## ✨ **Descrição do Projeto**
