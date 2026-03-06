@@ -29,4 +29,11 @@ class Conta {
     double verSaldo() {
         return this.saldo;
     }
+    public String toString() {
+        return ("Nome: " + this.nome +
+                "\nNúmero da Conta: " +
+                this.numeroConta + "\nSaldo: " +
+                this.saldo);
+
+    }
 }
