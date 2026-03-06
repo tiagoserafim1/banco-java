@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Teste11 {
+public class menuBanco {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
@@ -92,4 +92,5 @@ public class Teste11 {
         }
         sc.close();
     }
+
 }
