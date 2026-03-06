@@ -1,11 +1,12 @@
-# 🏦 **Sistema Bancário em Java – Projeto OOP**
+# 🏦 Sistema Bancário em Java – Projeto OOP
 
 <div align="center">
+</div>
 
 ---
 
 ## ✨ **Descrição do Projeto**
-Este projeto é um sistema bancário em Java feito para estudo de Programação Orientada a Objetos (OOP).  
+Este é um projeto de sistema bancário em Java feito para estudo de Programação Orientada a Objetos (OOP).  
 Permite criar contas, depositar, sacar e consultar saldo de forma prática e organizada.  
 
 > Foco no aprendizado de **classes, objetos, listas e lógica de banco**.
@@ -16,7 +17,7 @@ Permite criar contas, depositar, sacar e consultar saldo de forma prática e org
 - Criar contas de clientes  
 - Depositar dinheiro  
 - Sacar dinheiro  
-- Consultar saldo  
+- Consultar saldo   
 
 ---
 
@@ -30,3 +31,13 @@ Permite criar contas, depositar, sacar e consultar saldo de forma prática e org
 </div>
 
 ---
+
+## 📂 **Estrutura do Projeto**
+```text
+Banco/
+│
+├─ src/
+│   ├─ Main.java        # Classe principal com menu interativo
+│   └─ Conta.java       # Classe que representa uma conta bancária
+│   
+└─ README.md
