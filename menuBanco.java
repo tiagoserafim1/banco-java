@@ -75,7 +75,6 @@ public class menuBanco {
                     double valor = sc.nextDouble();
 
                     contaEncontrada.depositar(valor);
-
                     System.out.println("Depósito realizado!");
 
                 } else {
@@ -105,3 +104,4 @@ public class menuBanco {
         return null;
     }
 }
+
