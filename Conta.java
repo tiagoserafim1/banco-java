@@ -1,12 +1,14 @@
-class Conta {
+public class Conta {
     String nome;
     double saldo;
     int numeroConta;
+    int senha;
 
-    public Conta(String nome, double saldo, int numeroConta) {
+    public Conta(String nome, double saldo, int numeroConta, int senha) {
         this.nome = nome;
         this.saldo = saldo;
         this.numeroConta = numeroConta;
+        this.senha = senha;
     }
 
     boolean depositar(double valor) {
@@ -34,5 +36,6 @@ class Conta {
                 "\nNúmero da Conta: " +
                 this.numeroConta + "\nSaldo: " +
                 this.saldo);
+
     }
 }
