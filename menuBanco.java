@@ -24,67 +24,60 @@ public class menuBanco {
                 double saldo = sc.nextDouble();
                 System.out.println("Digite o número da conta:");
                 int numero = sc.nextInt();
+                System.out.println("Digite a senha da conta:");
+                int senha = sc.nextInt();
 
-                Conta novaConta = new Conta(nome, saldo, numero);
+                Conta novaConta = new Conta(nome, saldo, numero, senha);
                 contas.add(novaConta);
                 System.out.println("Conta criada com sucesso!");
             }
             else if (opcao == 3) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
-                Conta contaEncontrada = null;
-                for (Conta conta : contas) {
-                    if (conta.numeroConta == numeroBuscado) {
-                        contaEncontrada = conta;
-                        break;
-                    }
-                }
+                System.out.println("Digite a senha da conta:");
+                int senhaDigitada = sc.nextInt();
+
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, senhaDigitada);
                 if (contaEncontrada != null) {
                     System.out.println(contaEncontrada);
                 } else {
-                    System.out.println("Conta não encontrada");
+                    System.out.println("Conta ou senha incorreta");
                 }
             }
             else if (opcao == 4) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
-                Conta contaEncontrada = null;
+                System.out.println("Digite a senha da conta:");
+                int senhaDigitada = sc.nextInt();
 
-                for (Conta conta : contas) {
-                    if (conta.numeroConta == numeroBuscado) {
-                        contaEncontrada = conta;
-                        break;
-                    }
-                }
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, senhaDigitada);
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja sacar:");
                     double valor = sc.nextDouble();
+
                     if (valor > contaEncontrada.verSaldo()) {
                         System.out.println("Saldo insuficiente");
                     } else {
                         contaEncontrada.sacar(valor);
-                        System.out.println("Saque realizado!");
+                        System.out.println("Saque realizado! o novo saldo é: " + contaEncontrada.verSaldo());
                     }
                 } else {
-                    System.out.println("Conta não encontrada");
+                    System.out.println("Conta ou senha incorreta");
                 }
             }
             else if (opcao == 5) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
-                Conta contaEncontrada = null;
+                Conta contaEncontrada = buscarConta(contas, numeroBuscado);
 
-                for (Conta conta : contas) {
-                    if (conta.numeroConta == numeroBuscado) {
-                        contaEncontrada = conta;
-                        break;
-                    }
-                }
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja depositar:");
                     double valor = sc.nextDouble();
+
                     contaEncontrada.depositar(valor);
+
                     System.out.println("Depósito realizado!");
+
                 } else {
                     System.out.println("Conta não encontrada");
                 }
@@ -92,5 +85,23 @@ public class menuBanco {
         }
         sc.close();
     }
-
+    public static Conta buscarConta(ArrayList<Conta> contas, int numeroBuscado) {
+        Conta contaEncontrada = null;
+        for (Conta conta : contas) {
+            if (conta.numeroConta == numeroBuscado) {
+                contaEncontrada = conta;
+                break;
+            }
+        }
+        return contaEncontrada;
+    }
+    public static Conta autenticarConta(ArrayList<Conta> contas, int numero, int senha) {
+        Conta contaEncontrada = buscarConta(contas, numero);
+        if (contaEncontrada != null) {
+            if (contaEncontrada.senha == senha) {
+                return contaEncontrada;
+            }
+        }
+        return null;
+    }
 }
