@@ -1,8 +1,8 @@
 public class Conta {
-    String nome;
-    double saldo;
-    int numeroConta;
-    int senha;
+    private  String nome;
+    private double saldo;
+    private int numeroConta;
+    private int senha;
 
     public Conta(String nome, double saldo, int numeroConta, int senha) {
         this.nome = nome;
@@ -37,5 +37,15 @@ public class Conta {
                 this.numeroConta + "\nSaldo: " +
                 this.saldo);
 
+    }
+    public int getNumeroConta() {
+        return this.numeroConta;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+    public boolean verificarSenha(int senhaDigitada) {
+        return this.senha == senhaDigitada;
     }
 }
