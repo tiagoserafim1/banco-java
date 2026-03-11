@@ -30,8 +30,7 @@ public class menuBanco {
                 Conta novaConta = new Conta(nome, saldo, numero, senha);
                 contas.add(novaConta);
                 System.out.println("Conta criada com sucesso!");
-            }
-            else if (opcao == 3) {
+            } else if (opcao == 3) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
                 System.out.println("Digite a senha da conta:");
@@ -43,8 +42,7 @@ public class menuBanco {
                 } else {
                     System.out.println("Conta ou senha incorreta");
                 }
-            }
-            else if (opcao == 4) {
+            } else if (opcao == 4) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
                 System.out.println("Digite a senha da conta:");
@@ -64,8 +62,7 @@ public class menuBanco {
                 } else {
                     System.out.println("Conta ou senha incorreta");
                 }
-            }
-            else if (opcao == 5) {
+            } else if (opcao == 5) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
                 Conta contaEncontrada = buscarConta(contas, numeroBuscado);
@@ -73,13 +70,14 @@ public class menuBanco {
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja depositar:");
                     double valor = sc.nextDouble();
-
                     contaEncontrada.depositar(valor);
-                    System.out.println("Depósito realizado!");
 
+                    System.out.println("Depósito realizado!");
                 } else {
                     System.out.println("Conta não encontrada");
                 }
+            } else {
+                System.out.println("Opção invalida");
             }
         }
         sc.close();
@@ -87,7 +85,7 @@ public class menuBanco {
     public static Conta buscarConta(ArrayList<Conta> contas, int numeroBuscado) {
         Conta contaEncontrada = null;
         for (Conta conta : contas) {
-            if (conta.numeroConta == numeroBuscado) {
+            if (conta.getNumeroConta() == numeroBuscado) {
                 contaEncontrada = conta;
                 break;
             }
@@ -97,11 +95,10 @@ public class menuBanco {
     public static Conta autenticarConta(ArrayList<Conta> contas, int numero, int senha) {
         Conta contaEncontrada = buscarConta(contas, numero);
         if (contaEncontrada != null) {
-            if (contaEncontrada.senha == senha) {
+            if (contaEncontrada.verificarSenha(senha)); {
                 return contaEncontrada;
             }
         }
         return null;
     }
 }
-
