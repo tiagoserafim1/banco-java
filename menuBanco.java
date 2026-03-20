@@ -95,7 +95,7 @@ public class menuBanco {
     public static Conta autenticarConta(ArrayList<Conta> contas, int numero, int senha) {
         Conta contaEncontrada = buscarConta(contas, numero);
         if (contaEncontrada != null) {
-            if (contaEncontrada.verificarSenha(senha)); {
+            if (contaEncontrada.verificarSenha(senha)) {
                 return contaEncontrada;
             }
         }
