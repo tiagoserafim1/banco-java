@@ -14,6 +14,7 @@ public class menuBanco {
             System.out.println("3 - Exibir informações da conta");
             System.out.println("4 - Sacar");
             System.out.println("5 - Depositar");
+            System.out.println("6 - Transferir");
             opcao = sc.nextInt();
             sc.nextLine();// limpa buffer
 
@@ -30,6 +31,7 @@ public class menuBanco {
                 Conta novaConta = new Conta(nome, saldo, numero, senha);
                 contas.add(novaConta);
                 System.out.println("Conta criada com sucesso!");
+
             } else if (opcao == 3) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
@@ -45,6 +47,7 @@ public class menuBanco {
             } else if (opcao == 4) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
+
                 System.out.println("Digite a senha da conta:");
                 int senhaDigitada = sc.nextInt();
 
@@ -65,8 +68,11 @@ public class menuBanco {
             } else if (opcao == 5) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
-                Conta contaEncontrada = buscarConta(contas, numeroBuscado);
 
+                System.out.println("Digite a senha da conta:");
+                int senhaDigitada = sc.nextInt();
+
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, senhaDigitada);
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja depositar:");
                     double valor = sc.nextDouble();
@@ -74,14 +80,26 @@ public class menuBanco {
 
                     System.out.println("Depósito realizado!");
                 } else {
-                    System.out.println("Conta não encontrada");
+                    System.out.println("Conta ou senha incorreta");
                 }
-            } else {
-                System.out.println("Opção invalida");
+            } else if (opcao == 6) {
+                System.out.println("Digite o número da conta sua conta:");
+                int contaEnvi = sc.nextInt();
+                System.out.println("Digite sua senha:");
+                int senhaDigitada = sc.nextInt();
+                Conta contaEncontrada = autenticarConta(contas, contaEnvi, senhaDigitada);
+
+                if (contaEncontrada != null) {
+                    System.out.println("Digite o número da conta que deseja transferir:");
+                    int numeroTransferencia = sc.nextInt();
+                    transferirDinheiro(contas, numeroTransferencia, contaEncontrada);                } else {
+                    System.out.println("Conta ou senha incorreta");
+                }
             }
         }
         sc.close();
     }
+
     public static Conta buscarConta(ArrayList<Conta> contas, int numeroBuscado) {
         Conta contaEncontrada = null;
         for (Conta conta : contas) {
@@ -92,6 +110,7 @@ public class menuBanco {
         }
         return contaEncontrada;
     }
+
     public static Conta autenticarConta(ArrayList<Conta> contas, int numero, int senha) {
         Conta contaEncontrada = buscarConta(contas, numero);
         if (contaEncontrada != null) {
@@ -100,5 +119,19 @@ public class menuBanco {
             }
         }
         return null;
+    }
+
+    public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia) {
+        Scanner sc = new Scanner(System.in);
+        Conta contaRecebe = buscarConta(contas, numeroBuscado);
+        System.out.println("Digite o valor que deseja transferir:");
+        double valorTransferencia = sc.nextDouble();
+        if (valorTransferencia > contaEnvia.verSaldo()) {
+            System.out.println("Saldo insuficiente");
+        } else {
+            contaRecebe.depositar(valorTransferencia);
+            contaEnvia.sacar(valorTransferencia);
+            System.out.println("Transferencia realizada com sucesso! O novo saldo da conta que enviou é: " + contaEnvia.verSaldo());
+        }
     }
 }
