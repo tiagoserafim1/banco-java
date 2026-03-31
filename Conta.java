@@ -1,8 +1,8 @@
 public class Conta {
-    private  String nome;
+    private final String nome;
     private double saldo;
-    private int numeroConta;
-    private int senha;
+    private final int numeroConta;
+    private final int senha;
 
     public Conta(String nome, double saldo, int numeroConta, int senha) {
         this.nome = nome;
@@ -11,7 +11,7 @@ public class Conta {
         this.senha = senha;
     }
 
-    boolean depositar(double valor) {
+    public boolean depositar(double valor) {
         if (valor <= 0) {
             return false;
         } else {
@@ -20,7 +20,7 @@ public class Conta {
         }
     }
 
-    boolean sacar(double valor2) {
+    public boolean sacar(double valor2) {
         if (this.saldo >= valor2){
             this.saldo = this.saldo - valor2;
             return true;
@@ -28,7 +28,7 @@ public class Conta {
             return false;
         }
     }
-    double verSaldo() {
+    public double verSaldo() {
         return this.saldo;
     }
     public String toString() {
@@ -36,16 +36,18 @@ public class Conta {
                 "\nNúmero da Conta: " +
                 this.numeroConta + "\nSaldo: " +
                 this.saldo);
-
     }
+
     public int getNumeroConta() {
         return this.numeroConta;
     }
-
     public String getNome() {
         return this.nome;
     }
     public boolean verificarSenha(int senhaDigitada) {
+        return this.senha == senhaDigitada;
+    }
+    public boolean fazerTransferencia(int senhaDigitada) {
         return this.senha == senhaDigitada;
     }
 }
