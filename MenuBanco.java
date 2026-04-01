@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class menuBanco {
+public class MenuBanco {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
@@ -92,9 +92,13 @@ public class menuBanco {
                 if (contaEncontrada != null) {
                     System.out.println("Digite o número da conta que deseja transferir:");
                     int numeroTransferencia = sc.nextInt();
-                    transferirDinheiro(contas, numeroTransferencia, contaEncontrada);                } else {
+                    transferirDinheiro(contas, numeroTransferencia, contaEncontrada, sc);
+                } else {
                     System.out.println("Conta ou senha incorreta");
                 }
+
+            } else {
+                System.out.println("Opção inválida!");
             }
         }
         sc.close();
@@ -121,8 +125,7 @@ public class menuBanco {
         return null;
     }
 
-    public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia) {
-        Scanner sc = new Scanner(System.in);
+    public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia, Scanner sc) {
         Conta contaRecebe = buscarConta(contas, numeroBuscado);
         System.out.println("Digite o valor que deseja transferir:");
         double valorTransferencia = sc.nextDouble();
