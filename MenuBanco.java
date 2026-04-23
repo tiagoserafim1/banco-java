@@ -70,7 +70,7 @@ public class MenuBanco {
                     double valor = sc.nextDouble();
                     contaEncontrada.depositar(valor);
 
-                    System.out.println("Depósito realizado!");
+                    System.out.println("Depósito realizado! Seu novo saldo é: " + contaEncontrada.verSaldo());
                 } else {
                     System.out.println("Acesso negado.");
                 }
@@ -130,7 +130,7 @@ public class MenuBanco {
     public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia, Scanner sc) {
         Conta contaRecebe = buscarConta(contas, numeroBuscado);
         if (contaRecebe  != null) {
-            System.out.println("Digite o valor que deseja transferir:");
+            System.out.println("Digite o valor que deseja transferir para:" + contaEnvia.getNome());
             double valorTransferencia = sc.nextDouble();
             if (valorTransferencia > contaEnvia.verSaldo()) {
                 System.out.println("Saldo insuficiente");
