@@ -25,6 +25,10 @@ public class MenuBanco {
                 double saldo = sc.nextDouble();
                 System.out.println("Digite o número da conta:");
                 int numero = sc.nextInt();
+                if (buscarConta(contas, numero) != null) {
+                    System.out.println("já existe uma conta com esse número. Tente novamente.");
+                    continue;
+                }
                 System.out.println("Digite a senha da conta:");
                 int senha = sc.nextInt();
 
@@ -120,17 +124,15 @@ public class MenuBanco {
                     System.out.println("Senha incorreta. Tentativas restantes: " + tentativas);
                 }
             }
-            if (tentativas == 0) {
                 System.out.println("Conta bloqueada!");
             }
-        }
         return null;
     }
 
     public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia, Scanner sc) {
         Conta contaRecebe = buscarConta(contas, numeroBuscado);
         if (contaRecebe  != null) {
-            System.out.println("Digite o valor que deseja transferir para:" + contaEnvia.getNome());
+            System.out.println("Digite o valor que deseja transferir para:" + contaRecebe.getNome());
             double valorTransferencia = sc.nextDouble();
             if (valorTransferencia > contaEnvia.verSaldo()) {
                 System.out.println("Saldo insuficiente");
