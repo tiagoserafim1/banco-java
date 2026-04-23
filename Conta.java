@@ -31,7 +31,7 @@ public class Conta {
         }
         if (this.saldo >= valor2){
             this.saldo = this.saldo - valor2;
-            adicionarExtrato("Saque: +" + valor2);
+            adicionarExtrato("Saque: -" + valor2);
             return true;
         }
         return false;
@@ -68,5 +68,16 @@ public class Conta {
         for (String descricao : extrato) {
             System.out.println(descricao);
         }
+    }
+    public boolean transferirPara(Conta contaRecebe, double valor) {
+        if (valor <= 0 || this.saldo < valor) {
+            System.out.println("Saldo insuficiente");
+            return false;
+        }
+        this.saldo -= valor;
+        contaRecebe.saldo += valor;
+        adicionarExtrato("Transferência enviada para: " + contaRecebe.getNome() + " no valor de: -" + valor);
+        contaRecebe.adicionarExtrato("Transferência recebida de: " + this.nome + " no valor de: +" + valor);
+        return true;
     }
 }

@@ -61,8 +61,6 @@ public class MenuBanco {
                     } else {
                         contaEncontrada.sacar(valor);
                         System.out.println("Saque realizado! o novo saldo é: " + contaEncontrada.verSaldo());
-                        contaEncontrada.sacar(valor);
-                        contaEncontrada.adicionarExtrato("Saque: -" + valor);
                     }
                 } else {
                     System.out.println("Acesso negado.");
@@ -78,8 +76,6 @@ public class MenuBanco {
                     contaEncontrada.depositar(valor);
 
                     System.out.println("Depósito realizado! Seu novo saldo é: " + contaEncontrada.verSaldo());
-                    contaEncontrada.sacar(valor);
-                    contaEncontrada.adicionarExtrato("Depósito: -" + valor);
                 } else {
                     System.out.println("Acesso negado.");
                 }
@@ -144,22 +140,13 @@ public class MenuBanco {
 
     public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia, Scanner sc) {
         Conta contaRecebe = buscarConta(contas, numeroBuscado);
-        if (contaRecebe  != null) {
+        if (contaRecebe != null) {
             System.out.println("Digite o valor que deseja transferir para:" + contaRecebe.getNome());
             double valorTransferencia = sc.nextDouble();
-            if (valorTransferencia > contaEnvia.verSaldo()) {
-                System.out.println("Saldo insuficiente");
-            } else {
-                contaRecebe.depositar(valorTransferencia);
-                contaEnvia.sacar(valorTransferencia);
-                System.out.println("Transferencia realizada com sucesso! O novo saldo da conta que enviou é: " + contaEnvia.verSaldo());
-
-                contaRecebe.depositar(valorTransferencia);
-                contaEnvia.sacar(valorTransferencia);
-                contaEnvia.adicionarExtrato("Transferência enviada para: "+ contaRecebe.getNome() + " No valor de: -K" + valorTransferencia);
-                contaRecebe.adicionarExtrato("Transferência recebida de: " + contaEnvia.getNome() + " No valor de: +" + valorTransferencia);
+            if (contaEnvia.transferirPara(contaRecebe, valorTransferencia)) {
+                System.out.println("Transferencia realizada com sucesso! O novo saldo é: " + contaEnvia.verSaldo());
             }
-        } else  {
+        } else {
             System.out.println("Conta destino não encontrada");
         }
     }
