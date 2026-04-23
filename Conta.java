@@ -1,14 +1,18 @@
+import java.util.ArrayList;
+
 public class Conta {
     private final String nome;
     private double saldo;
     private final int numeroConta;
     private final int senha;
+    private ArrayList<String> extrato;
 
     public Conta(String nome, double saldo, int numeroConta, int senha) {
         this.nome = nome;
         this.saldo = saldo;
         this.numeroConta = numeroConta;
         this.senha = senha;
+        this.extrato = new ArrayList<>();
     }
 
     public boolean depositar(double valor) {
@@ -16,6 +20,7 @@ public class Conta {
             return false;
         } else {
             this.saldo = this.saldo + valor;
+            adicionarExtrato("Depósito: +" + valor);
             return true;
         }
     }
@@ -26,6 +31,7 @@ public class Conta {
         }
         if (this.saldo >= valor2){
             this.saldo = this.saldo - valor2;
+            adicionarExtrato("Saque: +" + valor2);
             return true;
         }
         return false;
@@ -45,10 +51,22 @@ public class Conta {
     public int getNumeroConta() {
         return this.numeroConta;
     }
+
     public String getNome() {
         return this.nome;
     }
+
     public boolean verificarSenha(int senhaDigitada) {
-        return this.senha == senhaDigitada;
+        return this.senha ==
+                senhaDigitada;
+    }
+
+    public void adicionarExtrato(String descricao) {
+        extrato.add(descricao);
+    }
+    public void mostrarExtrato() {
+        for (String descricao : extrato) {
+            System.out.println(descricao);
+        }
     }
 }

@@ -15,6 +15,7 @@ public class MenuBanco {
             System.out.println("4 - Sacar");
             System.out.println("5 - Depositar");
             System.out.println("6 - Transferir");
+            System.out.println("7 - Extrato da conta");
             opcao = sc.nextInt();
             sc.nextLine();// limpa buffer
 
@@ -60,6 +61,8 @@ public class MenuBanco {
                     } else {
                         contaEncontrada.sacar(valor);
                         System.out.println("Saque realizado! o novo saldo é: " + contaEncontrada.verSaldo());
+                        contaEncontrada.sacar(valor);
+                        contaEncontrada.adicionarExtrato("Saque: -" + valor);
                     }
                 } else {
                     System.out.println("Acesso negado.");
@@ -75,6 +78,8 @@ public class MenuBanco {
                     contaEncontrada.depositar(valor);
 
                     System.out.println("Depósito realizado! Seu novo saldo é: " + contaEncontrada.verSaldo());
+                    contaEncontrada.sacar(valor);
+                    contaEncontrada.adicionarExtrato("Depósito: -" + valor);
                 } else {
                     System.out.println("Acesso negado.");
                 }
@@ -91,7 +96,15 @@ public class MenuBanco {
                     System.out.println("Acesso negado.");
                 }
 
-            } else {
+            } else if (opcao == 7) {
+                System.out.println("Digite o número da conta:");
+                int numeroBuscado = sc.nextInt();
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, sc);
+                if (contaEncontrada != null) {
+                    contaEncontrada.mostrarExtrato();
+                }
+            }
+            else {
                 System.out.println("Opção inválida!");
             }
         }
@@ -140,6 +153,11 @@ public class MenuBanco {
                 contaRecebe.depositar(valorTransferencia);
                 contaEnvia.sacar(valorTransferencia);
                 System.out.println("Transferencia realizada com sucesso! O novo saldo da conta que enviou é: " + contaEnvia.verSaldo());
+
+                contaRecebe.depositar(valorTransferencia);
+                contaEnvia.sacar(valorTransferencia);
+                contaEnvia.adicionarExtrato("Transferência enviada para: "+ contaRecebe.getNome() + " No valor de: -K" + valorTransferencia);
+                contaRecebe.adicionarExtrato("Transferência recebida de: " + contaEnvia.getNome() + " No valor de: +" + valorTransferencia);
             }
         } else  {
             System.out.println("Conta destino não encontrada");
