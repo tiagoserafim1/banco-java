@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class menuBanco {
+public class MenuBanco {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
@@ -14,6 +14,7 @@ public class menuBanco {
             System.out.println("3 - Exibir informações da conta");
             System.out.println("4 - Sacar");
             System.out.println("5 - Depositar");
+            System.out.println("6 - Transferir");
             opcao = sc.nextInt();
             sc.nextLine();// limpa buffer
 
@@ -34,23 +35,18 @@ public class menuBanco {
             } else if (opcao == 3) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
-                System.out.println("Digite a senha da conta:");
-                int senhaDigitada = sc.nextInt();
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, sc);
 
-                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, senhaDigitada);
                 if (contaEncontrada != null) {
                     System.out.println(contaEncontrada);
                 } else {
-                    System.out.println("Conta ou senha incorreta");
+                    System.out.println("Acesso negado.");
                 }
             } else if (opcao == 4) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, sc);
 
-                System.out.println("Digite a senha da conta:");
-                int senhaDigitada = sc.nextInt();
-
-                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, senhaDigitada);
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja sacar:");
                     double valor = sc.nextDouble();
@@ -62,54 +58,42 @@ public class menuBanco {
                         System.out.println("Saque realizado! o novo saldo é: " + contaEncontrada.verSaldo());
                     }
                 } else {
-                    System.out.println("Conta ou senha incorreta");
+                    System.out.println("Acesso negado.");
                 }
             } else if (opcao == 5) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
+                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, sc);
 
-                System.out.println("Digite a senha da conta:");
-                int senhaDigitada = sc.nextInt();
-
-                Conta contaEncontrada = autenticarConta(contas, numeroBuscado, senhaDigitada);
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja depositar:");
                     double valor = sc.nextDouble();
                     contaEncontrada.depositar(valor);
 
-                    System.out.println("Depósito realizado!");
+                    System.out.println("Depósito realizado! Seu novo saldo é: " + contaEncontrada.verSaldo());
                 } else {
-                    System.out.println("Conta ou senha incorreta");
+                    System.out.println("Acesso negado.");
                 }
             } else if (opcao == 6) {
-                    System.out.println("Digite o número da conta:");
-                    int numeroBuscado = sc.nextInt();
-                    Conta contaEncontrada = buscarConta(contas, numeroBuscado);
+                System.out.println("Digite o número da conta sua conta:");
+                int contaEnvi = sc.nextInt();
+                Conta contaEncontrada = autenticarConta(contas, contaEnvi, sc);
 
-                    if (contaEncontrada != null) {
-                        int tentativas = 3;
+                if (contaEncontrada != null) {
+                    System.out.println("Digite o número da conta que deseja transferir:");
+                    int numeroTransferencia = sc.nextInt();
+                    transferirDinheiro(contas, numeroTransferencia, contaEncontrada, sc);
+                } else {
+                    System.out.println("Acesso negado.");
+                }
 
-                        while (tentativas > 0) {
-                            System.out.println("Digite a senha da conta:");
-                            int senhaDigitada = sc.nextInt();
-                            if (contaEncontrada.verificarSenha(senhaDigitada)){
-                                System.out.println("Bem vindo" + contaEncontrada.getNome());
-                                break;
-                            }else {
-                                tentativas--;
-                                System.out.println("Senha incorreta. Tentativas restantes: " + tentativas);
-                                if (tentativas == 0) {
-                                    System.out.println("bloqueada por excesso de tentativas.");
-                                }
-                            }
-                        }
-                    }
             } else {
-                System.out.println("Opção inválida, tente novamente.");
+                System.out.println("Opção inválida!");
             }
         }
         sc.close();
     }
+
     public static Conta buscarConta(ArrayList<Conta> contas, int numeroBuscado) {
         Conta contaEncontrada = null;
         for (Conta conta : contas) {
@@ -120,13 +104,43 @@ public class menuBanco {
         }
         return contaEncontrada;
     }
-    public static Conta autenticarConta(ArrayList<Conta> contas, int numero, int senha) {
+
+    public static Conta autenticarConta(ArrayList<Conta> contas, int numero, Scanner sc) {
         Conta contaEncontrada = buscarConta(contas, numero);
         if (contaEncontrada != null) {
-            if (contaEncontrada.verificarSenha(senha)){
-                return contaEncontrada;
+            int tentativas = 3;
+            while (tentativas > 0) {
+                System.out.println("Digite a senha:");
+                int senhaDigitada = sc.nextInt();
+                if (contaEncontrada.verificarSenha(senhaDigitada)) {
+                    System.out.println("Bem vindo, " + contaEncontrada.getNome());
+                    return contaEncontrada;
+                } else {
+                    tentativas--;
+                    System.out.println("Senha incorreta. Tentativas restantes: " + tentativas);
+                }
+            }
+            if (tentativas == 0) {
+                System.out.println("Conta bloqueada!");
             }
         }
         return null;
+    }
+
+    public static void transferirDinheiro(ArrayList<Conta> contas, int numeroBuscado, Conta contaEnvia, Scanner sc) {
+        Conta contaRecebe = buscarConta(contas, numeroBuscado);
+        if (contaRecebe  != null) {
+            System.out.println("Digite o valor que deseja transferir para:" + contaEnvia.getNome());
+            double valorTransferencia = sc.nextDouble();
+            if (valorTransferencia > contaEnvia.verSaldo()) {
+                System.out.println("Saldo insuficiente");
+            } else {
+                contaRecebe.depositar(valorTransferencia);
+                contaEnvia.sacar(valorTransferencia);
+                System.out.println("Transferencia realizada com sucesso! O novo saldo da conta que enviou é: " + contaEnvia.verSaldo());
+            }
+        } else  {
+            System.out.println("Conta destino não encontrada");
+        }
     }
 }

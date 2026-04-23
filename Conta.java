@@ -21,16 +21,20 @@ public class Conta {
     }
 
     public boolean sacar(double valor2) {
+        if (valor2 <= 0) {
+            return false;
+        }
         if (this.saldo >= valor2){
             this.saldo = this.saldo - valor2;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
+
     public double verSaldo() {
         return this.saldo;
     }
+
     public String toString() {
         return ("Nome: " + this.nome +
                 "\nNúmero da Conta: " +
@@ -45,9 +49,6 @@ public class Conta {
         return this.nome;
     }
     public boolean verificarSenha(int senhaDigitada) {
-        return this.senha == senhaDigitada;
-    }
-    public boolean fazerTransferencia(int senhaDigitada) {
         return this.senha == senhaDigitada;
     }
 }
