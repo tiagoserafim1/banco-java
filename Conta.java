@@ -5,7 +5,7 @@ public class Conta {
     private double saldo;
     private final int numeroConta;
     private final int senha;
-    private ArrayList<String> extrato;
+    private final ArrayList<String> extrato;
 
     public Conta(String nome, double saldo, int numeroConta, int senha) {
         this.nome = nome;
@@ -68,6 +68,7 @@ public class Conta {
         for (String descricao : extrato) {
             System.out.println(descricao);
         }
+        System.out.println("Saldo atual: R$"  + this.saldo);
     }
     public boolean transferirPara(Conta contaRecebe, double valor) {
         if (valor <= 0 || this.saldo < valor) {

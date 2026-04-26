@@ -8,14 +8,17 @@ public class MenuBanco {
         ArrayList<Conta> contas = new ArrayList<>();
 
         while (opcao != 2) {
-            System.out.println("\nEscolha uma opcao:");
-            System.out.println("1 - Criar conta");
-            System.out.println("2 - Sair");
-            System.out.println("3 - Exibir informações da conta");
-            System.out.println("4 - Sacar");
-            System.out.println("5 - Depositar");
-            System.out.println("6 - Transferir");
-            System.out.println("7 - Extrato da conta");
+            System.out.println("╔══════════════════════════╗");
+            System.out.println("║       BANCO DIGITAL      ║");
+            System.out.println("╠══════════════════════════╣");
+            System.out.println("║  1 - Criar conta         ║");
+            System.out.println("║  2 - Sair                ║");
+            System.out.println("║  3 - Informações         ║");
+            System.out.println("║  4 - Sacar               ║");
+            System.out.println("║  5 - Depositar           ║");
+            System.out.println("║  6 - Transferir          ║");
+            System.out.println("║  7 - Extrato             ║");
+            System.out.println("╚══════════════════════════╝");
             opcao = sc.nextInt();
             sc.nextLine();// limpa buffer
 
@@ -47,6 +50,7 @@ public class MenuBanco {
                 } else {
                     System.out.println("Acesso negado.");
                 }
+
             } else if (opcao == 4) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
@@ -56,15 +60,15 @@ public class MenuBanco {
                     System.out.println("Digite o valor que deseja sacar:");
                     double valor = sc.nextDouble();
 
-                    if (valor > contaEncontrada.verSaldo()) {
-                        System.out.println("Saldo insuficiente");
-                    } else {
-                        contaEncontrada.sacar(valor);
+                    if (contaEncontrada.sacar(valor)) {
                         System.out.println("Saque realizado! o novo saldo é: " + contaEncontrada.verSaldo());
+                    } else {
+                        System.out.println("Saldo insuficiente");
                     }
                 } else {
                     System.out.println("Acesso negado.");
                 }
+
             } else if (opcao == 5) {
                 System.out.println("Digite o número da conta:");
                 int numeroBuscado = sc.nextInt();
@@ -73,12 +77,16 @@ public class MenuBanco {
                 if (contaEncontrada != null) {
                     System.out.println("Digite o valor que deseja depositar:");
                     double valor = sc.nextDouble();
-                    contaEncontrada.depositar(valor);
 
-                    System.out.println("Depósito realizado! Seu novo saldo é: " + contaEncontrada.verSaldo());
+                    if (contaEncontrada.depositar(valor)) {
+                        System.out.println("Depósito realizado! o novo saldo é: " + contaEncontrada.verSaldo());
+                    } else {
+                        System.out.println("Valor inválido");
+                    }
                 } else {
                     System.out.println("Acesso negado.");
                 }
+
             } else if (opcao == 6) {
                 System.out.println("Digite o número da conta sua conta:");
                 int contaEnvi = sc.nextInt();
